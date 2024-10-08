@@ -57,7 +57,7 @@ module.exports.run = async function({
             api.sendMessage(msg, tid, mid)
         }
         const cmd = cmds.get(type).config
-        msg = `=== HƯỚNG DẪN SỬ DỤNG ===\n⩥ Tên lệnh: ${cmd.name}\n⩥ Phiên bản: ${cmd.version}\n⩥ Quyền Hạn: ${TextPr(cmd.hasPermssion)}\n⩥ Credit: ${cmd.credits}\n⩥ Mô Tả: ${cmd.description}\n⩥ Nhóm: ${cmd.commandCategory}\n⩥ Cách Dùng: ${cmd.usages}\n⩥ Cooldowns: ${cmd.cooldowns}s`
+        msg = `=== HƯỚNG DẪN SỬ DỤNG ===\n⩥ Tên lệnh: ${cmd.name}\n⩥ Phiên bản: ${cmd.version}\n⩥ Quyền Hạn: ${TextPr(cmd.hasPermssion)}\n⩥ Mô Tả: ${cmd.description}\n⩥ Nhóm: ${cmd.commandCategory}\n⩥ Cách Dùng: ${cmd.usages}\n⩥ Cooldowns: ${cmd.cooldowns}s`
         api.sendMessage(msg, tid, mid)
     } else {
         CmdCategory()

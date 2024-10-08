@@ -191,7 +191,7 @@ module.exports.run = function ({ event, args, api }) {
 
             return api.sendMessage(
                 "=== " + name.toUpperCase() + " ===\n" +
-                "- Được code bởi: " + credits + "\n" +
+                // "- Được code bởi: " + credits + "\n" +
                 "- Phiên bản: " + version + "\n" +
                 "- Yêu cầu quyền hạn: " + ((hasPermssion == 0) ? "Người dùng" : (hasPermssion == 1) ? "Quản trị viên" : "Người vận hành bot" ) + "\n" +
                 "- Thời gian chờ: " + cooldowns + " giây(s)\n" +
