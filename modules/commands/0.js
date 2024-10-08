@@ -1,46 +1,77 @@
-let urls = require('./../../SystemData/datajson/vdgai.json');
+const axios = require('axios');
 
-const axios = require("axios");
-const fs = require("fs");
-class Command {
- constructor(config) {
- this.config = config;
- this.queues = [];
- };
- async onLoad(o) {
- let status = false;
- if (!global.client.xx) global.client.xx = setInterval(_=> {
-if (status == true || this.queues.length > 300) return;
- status = true;
-Promise.all([...Array(5)].map(e=>upload(urls[Math.floor(Math.random()*urls.length)]))).then(res=>(this.queues.push(...res), status = false));
-},1000*5);
-async function streamURL(url, type) {
- return axios.get(url, {
- responseType: 'arraybuffer'
- }).then(res => {
- const path = __dirname + `/cache/${Date.now()}.${type}`;
- fs.writeFileSync(path, res.data);
- setTimeout(p => fs.unlinkSync(p), 1000 * 60, path);
- return fs.createReadStream(path);
- });
- }
-//const botStatus = getStatusByPing(ping);
-async function upload(url) {
- return o.api.postFormData('https://upload.facebook.com/ajax/mercury/upload.php',{upload_1024: await streamURL(url, 'mp4')}).then(res => Object.entries(JSON.parse(res.body.replace('for (;;);', '')).payload?.metadata?.[0] || {})[0]);
- };
- };
-async run(o) {
-let send = msg=>new Promise(r=>o.api.sendMessage(msg, o.event.threadID, (err, res)=>r(res || err), o.event.messageID)), t = process.uptime(),h = Math.floor(t / (60 * 60)), p = Math.floor((t % (60 * 60)) / 60), s = Math.floor(t % 60);
-send({body: `┏━━━━━━━━━━━━━━━━━━━━┓\n┣➤ Chưa Nhập Tên Lệnh\n┣➤Uptime:${h}:${p}:${s}\n┣➤Tổng: ${urls.length-2}\n┣➤Số video khả dụng: ${this.queues.length}\n┗━━━━━━━━━━━━━━━━━━━━┛\n\n`,attachment: this.queues.splice(0, 1)})
- }
+this.config = {
+    name: "",
+    version: "1.0.0",
+    hasPermission: 0,
+    credits: "DC-Nam",
+    description: "gái ",
+    commandCategory: "Ảnh",
+    usages: "",
+    cooldowns: 0
+};
+
+global.queuesabc = [];
+
+async function down(url) {
+    try {
+        const response = await axios({
+            url: url,
+            responseType: 'stream',
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error downloading the file:", error);
+        throw error;
+    }
 }
-module.exports = new Command({
- name: " ",
- version: "0.0.1",
- hasPermssion: 0,
- credits: "DC-Nam",
- description: "",
- commandCategory: "Tiện Ích",
- usages: "[]",
- cooldowns: 0,
-});
+
+this.onLoad = async function (o) {
+    let status = false;
+    const api_url = 'http://dongdev.click/api/vdgai';
+    if (!global.mmccffjjs) {
+        global.mmccffjjs = setInterval(async () => {
+            if (status || global.queuesabc.length > 5) return;
+            status = true;
+
+            try {
+                const results = await Promise.all([...Array(5)].map(async () => {
+                    const response = await axios.get(api_url);
+                    return await upload(o, response.data.url);
+                }));
+                console.log(results);
+                global.queuesabc.push(...results);
+            } catch (error) {
+                console.error("Error fetching data from API:", error);
+            } finally {
+                status = false;
+            }
+        }, 1000 * 5);
+    }
+};
+
+async function upload(o, url) {
+    try {
+        const form = {
+            upload_1024: await down(url),
+        };
+        const response = await o.api.postFormData('https://upload.facebook.com/ajax/mercury/upload.php', form);
+        const metadata = JSON.parse(response.body.replace('for (;;);', '')).payload?.metadata?.[0];
+        return metadata ? Object.entries(metadata)[0] : null;
+    } catch (error) {
+        console.error("Error uploading:", error);
+        throw error;
+    }
+}
+
+this.run = async function (o) {
+    try {
+        const msg = {
+            body: '⚠️ Chưa Nhập Tên Lệnh',
+            attachment: global.queuesabc.splice(0, 1),
+        };
+        await o.api.sendMessage(msg, o.event.threadID, null, o.event.messageID);
+    } catch (error) {
+        console.error("Error sending message:", error);
+    }
+}

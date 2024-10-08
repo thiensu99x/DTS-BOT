@@ -1,65 +1,86 @@
-const axios = require('axios');
+const os = require('os');
+const moment = require('moment-timezone');
+const fs = require('fs').promises; // Added for asynchronous file reading
 
 module.exports.config = {
-    name: "upt",
-    version: "1.0.5",
-    hasPermssion: 0,
-    credits: "Hphong",
-    description: "no prefix",
-    commandCategory: "Tiện ích",
-    usages: "Tiện ích",
-    cooldowns: 0
+  name: "upt",
+  version: "2.0.0",
+  hasPermission: 0,
+  credits: "",
+  description: "Hiển thị thông tin hệ thống của bot",
+  commandCategory: "Hệ Thống",
+  usages: "",
+  cooldowns: 5
 };
 
-async function downloadVideo(url) {
-    try {
-        const response = await axios({
-            url: url,
-            responseType: 'stream'
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error downloading video:", error);
-        throw error;
-    }
+async function getDependencyCount() {
+  try {
+    const packageJsonString = await fs.readFile('package.json', 'utf8');
+    const packageJson = JSON.parse(packageJsonString);
+    const depCount = Object.keys(packageJson.dependencies || {}).length;
+    const devDepCount = Object.keys(packageJson.devDependencies || {}).length;
+    return { depCount, devDepCount };
+  } catch (error) {
+    console.error('Không thể đọc file package.json:', error);
+    return { depCount: -1, devDepCount: -1 };
+  }
 }
 
-module.exports.run = async ({ api, event }) => {
-    const moment = require("moment-timezone");
-    const os = require("os");
-    const cpus = os.cpus();
-    const timeStart = Date.now();
-    const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("DD/MM/YYYY || HH:mm:ss");
-    
-    const time = process.uptime(),
-        hours = Math.floor(time / (60 * 60)),
-        minutes = Math.floor((time % (60 * 60)) / 60),
-        seconds = Math.floor(time % 60);
-    
-    const xuly = Math.floor((Date.now() - global.client.timeStart) / 4444);
-    const trinhtrang = xuly < 10 ? "Tốt ✔️" : (xuly < 100 ? "Ổn định 📊" : "Delay 🐢");
-    const api_url = 'http://dongdev.click/api/vdgai';
-
-    try {
-        const videoData = await axios.get(api_url);
-        const videoUrl = videoData.data.url;
-        const videoStream = await downloadVideo(videoUrl);
-
-        const msg = {
-            body: ` ⏰𝗧𝗶𝗺𝗲: ${timeNow}\n⏳𝗧𝗵𝗼̛̀𝗶 𝗴𝗶𝗮𝗻 𝗼𝗻𝗹: ${hours}:${minutes}:${seconds}\n🤖𝗣𝗿𝗲𝗳𝗶𝘅 𝗛𝗲̣̂ 𝗧𝗵𝗼̂́𝗻𝗴: ${global.config.PREFIX}\n⚙️𝗧𝗶̀𝗻𝗵 𝘁𝗿𝗮̣𝗻𝗴: ${trinhtrang}\n⏲️𝗧𝗼̂́𝗰 đ𝗼̣̂ 𝘅𝘂̛̉ 𝗹𝘆́: ${xuly} 𝗴𝗶𝗮̂𝘆\n⏳𝐏𝐢𝐧𝐠: ${Date.now() - timeStart}ms`,
-            attachment: videoStream
-        };
-
-        api.sendMessage(msg, event.threadID, (err, info) => {
-            global.client.handleReaction.push({
-                name: this.config.name,
-                messageID: info.messageID,
-                author: event.senderID,
-            });
-        }, event.messageID);
-
-    } catch (error) {
-        console.error("Error processing video:", error);
-        api.sendMessage("Có lỗi xảy ra khi tải video.", event.threadID, event.messageID);
+function getStatusByPing(ping) {
+  if (ping < 200) {
+    return 'mượt';
+  } else if (ping < 800) {
+    return 'bình thường';
+  } else {
+    return 'delay';
+  }
+}
+function getPrimaryIP() {
+  const interfaces = os.networkInterfaces();
+  for (let iface of Object.values(interfaces)) {
+    for (let alias of iface) {
+      if (alias.family === 'IPv4' && !alias.internal) {
+        return alias.address;
+      }
     }
+  }
+  return '127.0.0.1'; 
+}
+
+module.exports.run = async ({ api, event, Users }) => {
+  const totalMemory = os.totalmem();
+  const freeMemory = os.freemem();
+  const usedMemory = totalMemory - freeMemory;
+  const uptime = process.uptime();
+
+  const { depCount, devDepCount } = await getDependencyCount();
+  let name = await Users.getNameUser(event.senderID);
+  const primaryIp = getPrimaryIP();
+  const botStatus = getStatusByPing(Date.now() - event.timestamp);
+
+  const uptimeHours = Math.floor(uptime / (60 * 60));
+  const uptimeMinutes = Math.floor((uptime % (60 * 60)) / 60);
+  const uptimeSeconds = Math.floor(uptime % 60);
+
+  const uptimeString = `${uptimeHours.toString().padStart(2, '0')}:${uptimeMinutes.toString().padStart(2, '0')}:${uptimeSeconds.toString().padStart(2, '0')}`;
+
+  // Formatted message including CPU and RAM details, similar to Replit's standards.
+  const replyMsg = `
+    ⏰ Bây giờ là: ${moment().tz('Asia/Ho_Chi_Minh').format('HH:mm:ss')} || ${moment().tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY')}
+⏱ Thời gian đã hoạt động: ${uptimeString}
+📝 Prefix mặc định: ${global.config.PREFIX}
+🌐 Địa chỉ IP: ${primaryIp}
+🗂️ Tổng số dependencies: ${depCount}
+📂 Tổng số devDependencies: ${devDepCount}
+🔣 Tình trạng bot: ${botStatus}
+🗃 Thông tin hệ thống:
+📋 Hệ điều hành: ${os.type()} ${os.release()} (${os.arch()})
+📊 CPU: ${os.cpus().length} core(s) - ${os.cpus()[0].model.trim()} @ ${os.cpus()[0].speed}MHz
+💾 RAM: ${(usedMemory / 1024 / 1024 / 1024).toFixed(2)}GB/${(totalMemory / 1024 / 1024 / 1024).toFixed(2)}GB 
+🛢️ Dung lượng trống: ${(freeMemory / 1024 / 1024 / 1024).toFixed(2)}GB
+📉 Ping: ${Date.now() - event.timestamp}ms
+👤 Yêu cầu bởi: ${name}
+  `.trim();
+
+  api.sendMessage(replyMsg, event.threadID, event.messageID);
 };
