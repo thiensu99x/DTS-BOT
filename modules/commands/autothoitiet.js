@@ -52,33 +52,19 @@ const nam = [
 
  {
 
- timer: '10:00:00',
-
- message: ['\n{thoitiet}']
-
- },
-
- {
-
- timer: '06:00:00',
+ timer: '7:30:00',
 
  message: ['\n{thoitiet}']
 
  },
  {
 
- timer: '13:00:00',
+    timer: '20:30:00',
+   
+    message: ['\n{thoitiet}']
+   
+    }
 
- message: ['\n{thoitiet}']
-
- },
-  {
-
- timer: '17:00:00',
-
- message: ['\n{thoitiet}']
-
- }
 ];
 
 module.exports.onLoad = o => setInterval(async () => {
@@ -95,7 +81,7 @@ var msg = r(á.message);
 
 var tinh = [
 
-"Quảng Bình"
+"Quảng Ngãi"
 
 ];
 

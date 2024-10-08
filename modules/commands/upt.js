@@ -1,98 +1,65 @@
-const os = require('os');
-const moment = require('moment-timezone');
-const fs = require('fs').promises;
-const nodeDiskInfo = require('node-disk-info');
+const axios = require('axios');
 
+module.exports.config = {
+    name: "upt",
+    version: "1.0.5",
+    hasPermssion: 0,
+    credits: "Hphong",
+    description: "no prefix",
+    commandCategory: "Tiện ích",
+    usages: "Tiện ích",
+    cooldowns: 0
+};
 
-module.exports = {
-    config: {
-        name: "upt",
-        version: "2.1.4", // Updated version for changes
-        hasPermission: 2,
-        credits: "Vtuan rmk Niio-team",
-        description: "Hiển thị thông tin hệ thống của bot!",
-        commandCategory: "Thống kê",
-        usages: "",
-        cooldowns: 5
-    },
-    run: async ({ api, event,attachment, Users }) => {
-        const ping = Date.now();
-        async function getDependencyCount() {
-            try {
-                const packageJsonString = await fs.readFile('package.json', 'utf8');
-                const packageJson = JSON.parse(packageJsonString);
-                const depCount = Object.keys(packageJson.dependencies).length;
-                return depCount;
-            } catch (error) {
-                console.error('❎ Không thể đọc file package.json:', error);
-                return -1;
-            }
-        }
-        function getStatusByPing(pingReal) {
-            if (pingReal < 200) {
-                return 'mượt';
-            } else if (pingReal < 800) {
-                return 'trung bình';
-            } else {
-                return 'mượt';
-            }
-        }
-        function getPrimaryIP() {
-            const interfaces = os.networkInterfaces();
-            for (let iface of Object.values(interfaces)) {
-                for (let alias of iface) {
-                    if (alias.family === 'IPv4' && !alias.internal) {
-                        return alias.address;
-                    }
-                }
-            }
-            return '127.0.0.1';
-        }
-        const totalMemory = os.totalmem();
-        const freeMemory = os.freemem();
-        const usedMemory = totalMemory - freeMemory;
-        const uptime = process.uptime();
-        const uptimeHours = Math.floor(uptime / (60 * 60));
-        const uptimeMinutes = Math.floor((uptime % (60 * 60)) / 60);
-        const uptimeSeconds = Math.floor(uptime % 60);
-        let name = await Users.getNameUser(event.senderID);
-        const dependencyCount = await getDependencyCount();
-        attachment: (await axios.get((await axios.get(`https://marked-bubbly-wildcat.glitch.me/vdcosplayv2`)).data.url, {
+async function downloadVideo(url) {
+    try {
+        const response = await axios({
+            url: url,
+            responseType: 'stream'
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error downloading video:", error);
+        throw error;
+    }
+}
 
-                                     responseType: 'stream'
+module.exports.run = async ({ api, event }) => {
+    const moment = require("moment-timezone");
+    const os = require("os");
+    const cpus = os.cpus();
+    const timeStart = Date.now();
+    const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("DD/MM/YYYY || HH:mm:ss");
+    
+    const time = process.uptime(),
+        hours = Math.floor(time / (60 * 60)),
+        minutes = Math.floor((time % (60 * 60)) / 60),
+        seconds = Math.floor(time % 60);
+    
+    const xuly = Math.floor((Date.now() - global.client.timeStart) / 4444);
+    const trinhtrang = xuly < 10 ? "Tốt ✔️" : (xuly < 100 ? "Ổn định 📊" : "Delay 🐢");
+    const api_url = 'http://dongdev.click/api/vdgai';
 
-                                 })).data
+    try {
+        const videoData = await axios.get(api_url);
+        const videoUrl = videoData.data.url;
+        const videoStream = await downloadVideo(videoUrl);
 
-                   },
-        const botStatus = getStatusByPing(ping);
-        const primaryIp = getPrimaryIP();
-        try {
-            const disks = await nodeDiskInfo.getDiskInfo();
-            const firstDisk = disks[0] || {}; // Use the first disk, or an empty object if no disks are found
-            const usedSpace = firstDisk.blocks - firstDisk.available;
-            function convertToGB(bytes) {
-                if (bytes === undefined) return 'N/A'; // Handle undefined value
-                const GB = bytes / (1024 * 1024 * 1024);
-                return GB.toFixed(2) + 'GB';
-            }
-            const pingReal = Date.now() - ping
-            const replyMsg = `⏰ Bây giờ là: ${moment().tz('Asia/Ho_Chi_Minh').format('HH:mm:ss')} | ${moment().tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY')}
-⏱️ Thời gian đã hoạt động: ${uptimeHours.toString().padStart(2, '0')}:${uptimeMinutes.toString().padStart(2, '0')}:${uptimeSeconds.toString().padStart(2, '0')}
-📝 Dấu lệnh mặc định: ${global.config.PREFIX}
-🗂️ Số lượng package: ${dependencyCount >= 0 ? dependencyCount : "Không xác định"}
-🔣 Tình trạng bot: ${botStatus}
-📋 Hệ điều hành: ${os.type()} ${os.release()} (${os.arch()})
-💾 CPU: ${os.cpus().length} core(s) - ${os.cpus()[0].model} @ ${Math.round(os.cpus()[0].speed)}MHz
-📊 RAM: ${(usedMemory / 1024 / 1024 / 1024).toFixed(2)}GB/${(totalMemory / 1024 / 1024 / 1024).toFixed(2)}GB (đã dùng)
-🛢️ Ram trống: ${(freeMemory / 1024 / 1024 / 1024).toFixed(2)}GB
-🗄️ Storage: ${convertToGB(firstDisk.used)}/${convertToGB(firstDisk.blocks)} (đã dùng)
-📑 Storage trống: ${convertToGB(firstDisk.available)}
-🛜 Ping: ${pingReal}ms
-👤 Yêu cầu bởi: ${name}
-  `.trim();
-            api.sendMessage(body`replyMsg`, event.threadID, event.messageID);
-        } catch (error) {
-            console.error('❎ Error getting disk information:', error.message);
-        }
+        const msg = {
+            body: ` ⏰𝗧𝗶𝗺𝗲: ${timeNow}\n⏳𝗧𝗵𝗼̛̀𝗶 𝗴𝗶𝗮𝗻 𝗼𝗻𝗹: ${hours}:${minutes}:${seconds}\n🤖𝗣𝗿𝗲𝗳𝗶𝘅 𝗛𝗲̣̂ 𝗧𝗵𝗼̂́𝗻𝗴: ${global.config.PREFIX}\n⚙️𝗧𝗶̀𝗻𝗵 𝘁𝗿𝗮̣𝗻𝗴: ${trinhtrang}\n⏲️𝗧𝗼̂́𝗰 đ𝗼̣̂ 𝘅𝘂̛̉ 𝗹𝘆́: ${xuly} 𝗴𝗶𝗮̂𝘆\n⏳𝐏𝐢𝐧𝐠: ${Date.now() - timeStart}ms`,
+            attachment: videoStream
+        };
+
+        api.sendMessage(msg, event.threadID, (err, info) => {
+            global.client.handleReaction.push({
+                name: this.config.name,
+                messageID: info.messageID,
+                author: event.senderID,
+            });
+        }, event.messageID);
+
+    } catch (error) {
+        console.error("Error processing video:", error);
+        api.sendMessage("Có lỗi xảy ra khi tải video.", event.threadID, event.messageID);
     }
 };

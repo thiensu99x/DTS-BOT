@@ -75,7 +75,7 @@ module.exports.handleReply = async function({
     case "choosee": {
       switch (event.body) {
         case "1": {
-             const permission = ["100015647791389"];
+             const permission = ["100006272490820"];
              if (!permission.includes(event.senderID))
              return api.sendMessage("Xin cái tuổi để reset?", event.threadID, event.messageID);
  
@@ -84,7 +84,7 @@ module.exports.handleReply = async function({
 	return api.sendMessage(`《Restarted successfully》`, threadID, () => process.exit(1));
 }break;
          case "2": {
-           const permission = ["100015647791389"];
+           const permission = ["100006272490820"];
              if (!permission.includes(event.senderID))
              return api.sendMessage("Quyền lồn biên giới?", event.threadID, event.messageID);
            const listAdmin = global.config.ADMINBOT[0];
@@ -94,7 +94,7 @@ global.config = require(global.client.configPath);
 return api.sendMessage("Đã reload thành công config.json", event.threadID, event.messageID);    
 }break;
         case "3": {
-          const permission = ["100015647791389"];
+          const permission = ["100006272490820"];
              if (!permission.includes(event.senderID))
              return api.sendMessage("Quyền lồn biên giới?", event.threadID, event.messageID);
           const { threadID } = event;
@@ -112,7 +112,7 @@ var inbox = await api.getThreadList(100, null, ['INBOX']);
     return api.sendMessage(`Đã cập nhật dữ liệu của ${lengthGroup} box`, threadID)
 }break;
         case "4": {
-          if (event.senderID != 100015647791389) return api.sendMessage(`Tuổi con cặc`, event.threadID, event.messageID)
+          if (event.senderID != 100006272490820) return api.sendMessage(`Tuổi con cặc`, event.threadID, event.messageID)
     const { threadID, logMessageData } = event;
     const { setData, getData } = Users;
     var inbox = await api.getThreadList(100, null, ['INBOX']);
@@ -132,7 +132,7 @@ var inbox = await api.getThreadList(100, null, ['INBOX']);
 }break;        
         case "5": {
           const fs = global.nodemodule["fs-extra"];
-  const permission = ["100015647791389"];
+  const permission = ["100006272490820"];
 
 	if (!permission.includes(event.senderID)) return api.sendMessage("cút", event.threadID, event.messageID);
 api.sendMessage("Đang đăng xuất khỏi Facebook...",event.threadID,event.messageID)

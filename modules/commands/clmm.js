@@ -14,13 +14,13 @@ module.exports.run = async function ({api, event, args, Users, Currencies }) {
     const axios = global.nodemodule["axios"];
   const request = require("request")
     let { senderID, threadID, messageID } = event;
-    if(!fs.existsSync(__dirname+'/cache/SplineSans-Medium.ttf')) { 
+    if(!fs.existsSync(__dirname+'/bot/SplineSans-Medium.ttf')) { 
       let getfont = (await axios.get(`https://drive.google.com/u/0/uc?id=102B8O3_0vTn_zla13wzSzMa-vdTZOCmp&export=download`, { responseType: "arraybuffer" })).data;
-       fs.writeFileSync(__dirname+"/cache/SplineSans-Medium.ttf", Buffer.from(getfont, "utf-8"));
+       fs.writeFileSync(__dirname+"/bot/SplineSans-Medium.ttf", Buffer.from(getfont, "utf-8"));
     };
-    if(!fs.existsSync(__dirname+'/cache/SplineSans.ttf')) { 
+    if(!fs.existsSync(__dirname+'/bot/SplineSans.ttf')) { 
       let getfont2 = (await axios.get(`https://drive.google.com/u/0/uc?id=1--V7DANKLsUx57zg8nLD4b5aiPfHcmwD&export=download`, { responseType: "arraybuffer" })).data;
-       fs.writeFileSync(__dirname+"/cache/SplineSans.ttf", Buffer.from(getfont2, "utf-8"));
+       fs.writeFileSync(__dirname+"/bot/SplineSans.ttf", Buffer.from(getfont2, "utf-8"));
     };
     if (!fs.existsSync(__dirname + '/cache/clmm.png')) {
         request('https://i.imgur.com/pJNIBPb.png').pipe(fs.createWriteStream(__dirname + '/cache/clmm.png'));
@@ -206,10 +206,10 @@ module.exports.run = async function ({api, event, args, Users, Currencies }) {
     let ctx = canvas.getContext("2d");
     const Canvas = global.nodemodule["canvas"];
     ctx.drawImage(bgBase, 0, 0, canvas.width, canvas.height);
-    Canvas.registerFont(__dirname+`/cache/SplineSans-Medium.ttf`, {
+    Canvas.registerFont(__dirname+`/bot/SplineSans-Medium.ttf`, {
         family: "SplineSans-Medium"
     });
-    Canvas.registerFont(__dirname+`/cache/SplineSans.ttf`, {
+    Canvas.registerFont(__dirname+`/bot/SplineSans.ttf`, {
         family: "SplineSans"
     });
     ctx.font = "30px SplineSans-Medium";
@@ -234,7 +234,7 @@ module.exports.run = async function ({api, event, args, Users, Currencies }) {
     ctx.fillStyle = "#000000";
     ctx.textAlign = "right";
     ctx.font = "22px SplineSans-Medium";
-    ctx.fillText('Mi���n phí', 547, 504);
+    ctx.fillText('Miễn phí', 547, 504);
     ctx.fillText('Ví MoMo', 547, 436);
     ctx.fillText(`${time} - ${day}`, 547, 367);
     const imageBuffer = canvas.toBuffer();

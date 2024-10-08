@@ -1,52 +1,113 @@
-const moment = require("moment-timezone");
-const axios = require('axios');
-
-module.exports.config = {
+﻿module.exports.config = {
     name: "ai",
-    version: "1.0.0",
-    hasPermission: 0,
-    credits: "api by jerome",//api by jerome
-    description: "Gpt architecture",
-    usePrefix: false,
-    commandCategory: "GPT4",
+    version: "4.0.0",
+    hasPermssion: 0,
+    credits: "Fumio",
+    description: "GPT4",
+    commandCategory: "box chat",
+    usages: "[Script]",
     cooldowns: 5,
-};
-
-module.exports.run = async function ({ api, event, args }) {
+    usePrefix: false,
+  };
+  var axios = require("axios");
+  var api_key = "";
+  async function chat(messages) {
+   // console.log(messages)
+    var apikey = require("./cache/data/apikey.json");
+    var token = apikey[Math.floor(Math.random()*apikey.length)];
+    var key = token.token[Math.floor(Math.random()*token.token.length)];
+   // console.log(key)
+  
+  
+    const options = {
+      method: 'POST',
+      url: 'https://chatgpt-api8.p.rapidapi.com/',
+    headers: {
+      'content-type': 'application/json',
+      'X-RapidAPI-Key':key,
+      'X-RapidAPI-Host': 'chatgpt-api8.p.rapidapi.com'
+    },
+      data:messages
+    };
+  
     try {
-        const { messageID, messageReply } = event;
-        let prompt = args.join(' ');
-
-        if (messageReply) {
-            const repliedMessage = messageReply.body;
-            prompt = `${repliedMessage} ${prompt}`;
-        }
-
-        if (!prompt) {
-            return api.sendMessage('🐱 𝙷𝚎𝚕𝚕𝚘, 𝙸 𝚊𝚖 𝙶𝚙𝚝-4 𝚝𝚛𝚊𝚒𝚗𝚎𝚍 𝚋𝚢 𝙾𝚙𝚎𝚗𝚊𝚒\n\n𝙷𝚘𝚠 𝚖𝚊𝚢 𝚒 𝚊𝚜𝚜𝚒𝚜𝚝 𝚢𝚘𝚞 𝚝𝚘𝚍𝚊𝚢?', event.threadID, messageID);
-        }
-        api.sendMessage('🗨️ | 𝙶𝚙𝚝-4 𝚒𝚜 𝚜𝚎𝚊𝚛𝚌𝚑𝚒𝚗𝚐, 𝙿𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝...', event.threadID);
-
-        // Delay
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Adjust the delay time as needed
-
-        const gpt4_api = `https://gpt4withcustommodel.onrender.com/gpt?query=${encodeURIComponent(prompt)}&model=gpt-4-32k-0314`;
-        const Ho_Chi_minhTime = moment.tz('Asia/Ho_Chi_minh');
-        const formattedDateTime = Ho_Chi_minhTime.format('MMMM D, YYYY h:mm A');
-
-        const response = await axios.get(gpt4_api);
-
-        if (response.data && response.data.response) {
-            const generatedText = response.data.response;
-
-            // Ai Answer Here
-            api.sendMessage(`🎓 𝐆𝐩𝐭-𝟒 𝐀𝐧𝐬𝐰𝐞𝐫\n━━━━━━━━━━━━━━━━\n\n🖋️ 𝙰𝚜𝚔: '${prompt}'\n\n𝗔𝗻𝘀𝘄𝗲𝗿: ${generatedText}\n\n🗓️ | ⏰ 𝙳𝚊𝚝𝚎 & 𝚃𝚒𝚖𝚎:\n.⋅ ۵ ${formattedDateTime} ۵ ⋅.\n\n━━━━━━━━━━━━━━━━`, event.threadID, messageID);
-        } else {
-            console.error('API response did not contain expected data:', response.data);
-            api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);
-        }
+      const response = await axios.request(options);  
+     // console.log(response.data);
+      return response
     } catch (error) {
-        console.error('Error:', error);
-        api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Error details: ${error.message}`, event.threadID, event.messageID);
+      console.error(error);
     }
-};
+  }
+  module.exports.run = async function ({
+    api,
+    event: e,
+    args,
+    Threads,
+    Users,
+    Currencies,
+    models,
+  }) {
+    try{
+    var query =
+      e.type === "message_reply"
+        ? args.join(" ") + ' "' + e.messageReply.body + '"'
+        : args.join(" ");
+  
+    var encodedQuery = encodeURIComponent(query);
+  
+    let messages = [
+      { role: "system", content: "You are a helpful assistant" },
+      { role: "user", content: query },
+    ];
+  
+    var response = await chat(messages);
+  
+    let message = { role: "assistant",
+                   content: response.data.text}
+  
+    var result = response.data.text;
+  
+    try {
+      return api.sendMessage(
+        result,
+        e.threadID,
+        (err, res) => (
+          messages.push(message),
+          (res.name = exports.config.name),
+          (res.messages = messages),
+          global.client.handleReply.push(res)
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+  
+      api.sendMessage(result, e.threadID);
+    }
+    } catch(e) {console.log(e)}
+  };
+  
+  module.exports.handleReply = async (o) => {
+    let messages = o.handleReply.messages;
+  
+    messages.push({ role: "user", content: o.event.body });
+  //console.log(messages)
+    let res = await chat(messages);
+  
+    let message = { role: "assistant",
+         content: res.data.text}
+  ;
+  
+    o.api.sendMessage(
+      res.data.text,
+      o.event.threadID,
+      (err, res) => (
+        messages.push(message),
+        (res.name = exports.config.name),
+        (res.messages = messages),
+        global.client.handleReply.push(res)
+      ),
+      o.event.messageID,
+    );
+  
+    // console.log(message.content)
+  };
