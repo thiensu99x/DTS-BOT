@@ -5,7 +5,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "Horizon Lucius Synthesis I",
     description: "Game bầu cua có đặt cược",
-    commandCategory: "game",
+    commandCategory: "Trò chơi",
     usages: "<[gà/tôm/bầu/cua/cá/nai] hoặc[🐓/🦞/🍐/🦀/🐬/🦌]> <Số tiền cược (lưu ý phải trên 100$)>",
     cooldowns: 2
 };
@@ -85,10 +85,10 @@ module.exports.run = async function({ api, event, args, Currencies }) { var out 
     const slotItems = ["ga", "tom", "bau", "cua", "ca", "nai"];
         const moneyUser = (await Currencies.getData(event.senderID)).money;
             var moneyBet = parseInt(args[1]);
-                if (!args[0] || !isNaN(args[0])) return api.sendMessage("[𝑷𝑮🐧] => Hãy Bấm : /baucua [bầu/cua/cá/nai/gà/tôm] [số tiền]",event.threadID, event.messageID);
-                if (isNaN(moneyBet) || moneyBet <= 0) return api.sendMessage("[𝑷𝑮🐧] => Số tiền đặt cược không được để trống hoặc là số tiền âm", event.threadID, event.messageID);
-            if (moneyBet > moneyUser) return api.sendMessage("[𝑩𝑶𝑻] => Số tiền bạn đặt lớn hơn số dư của bạn!", event.threadID, event.messageID);
-        if (moneyBet < 100) return api.sendMessage("[𝑩𝑶𝑻] => Số tiền đặt không được dưới 100 đô!", event.threadID, event.messageID);
+                if (!args[0] || !isNaN(args[0])) return api.sendMessage("Hãy Bấm : /baucua [bầu/cua/cá/nai/gà/tôm] [số tiền]",event.threadID, event.messageID);
+                if (isNaN(moneyBet) || moneyBet <= 0) return api.sendMessage("Số tiền đặt cược không được để trống hoặc là số tiền âm", event.threadID, event.messageID);
+            if (moneyBet > moneyUser) return api.sendMessage("Số tiền bạn đặt lớn hơn số dư của bạn!", event.threadID, event.messageID);
+        if (moneyBet < 100) return api.sendMessage("Số tiền đặt không được dưới 100 đô!", event.threadID, event.messageID);
     var number = [], win = false;
 for (let i = 0; i < 3; i++) number[i] = slotItems[Math.floor(Math.random() * slotItems.length)];
     var itemm;
@@ -118,10 +118,10 @@ for (let i = 0; i < 3; i++) number[i] = slotItems[Math.floor(Math.random() * slo
                     case "Tôm": itemm = "tom";
                             icon = '🦞';
                         break;
-                            default: return api.sendMessage("[𝑩𝑶𝑻] => Hãy Bấm : /baucua [bầu/cua/cá/nai/gà/tôm] [số tiền]",event.threadID, event.messageID);
+                            default: return api.sendMessage("Hãy Bấm : /baucua [bầu/cua/cá/nai/gà/tôm] [số tiền]",event.threadID, event.messageID);
             }      
             await get(number[0],number[1],number[2]);
-        api.sendMessage({body:"🌺 𝑪𝒉𝒐̛̀ 𝑩𝒐𝒕 𝑳𝒂̆́𝒄 𝑵𝒉𝒆́\n🌺 𝑪𝒉𝒖́𝒄 𝑩𝒂̣𝒏 𝑴𝒂𝒚 𝑴𝒂̆́𝒏...💝",attachment: createReadStream(__dirname + "/cache/baucua.gif")},event.threadID,async (error,info) => {
+        api.sendMessage({body:"𝐂𝐡𝐮́𝐜 𝐛𝐚̣𝐧 𝐦𝐚𝐲 𝐦𝐚̆́𝐧💝",attachment: createReadStream(__dirname + "/cache/baucua.gif")},event.threadID,async (error,info) => {
             await new Promise(resolve => setTimeout(resolve, 5 * 1000));
                 api.unsendMessage(info.messageID);
                       await new Promise(resolve => setTimeout(resolve, 100));
@@ -138,22 +138,22 @@ var array = [number[0],number[1],number[2]];
         if (i == 1) {
             var mon = parseInt(args[1]) + 300;  
                 await Currencies.increaseMoney(event.senderID, mon); console.log("s1")
-                    return api.sendMessage({body:`➢ 𝑳𝒂̆́𝒄 𝑻𝒓𝒖́𝒏𝒈: ${full.join(" | ")}\n🌺𝑩𝒂̣𝒏 𝑻𝒉𝒂̆́𝒏𝒈 𝑳𝒐̛́𝒏 𝑽𝒂̀ 𝑵𝒉𝒂̣̂𝒏 𝑽𝒆̂̀ 𝑺𝒐̂́ 𝑻𝒊𝒆̂̀𝒏 ${mon}$ 💸\n➢ 𝑩𝒐𝒕 𝒍𝒂̆́𝒄 𝒓𝒂 𝒄𝒐́ 𝒎𝒐̣̂𝒕 𝒄𝒐𝒏 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐦𝐨̣̂𝐭 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
         else if (i == 2) {
             var mon = parseInt(args[1]) * 2; 
                 await Currencies.increaseMoney(event.senderID, mon); console.log("s2")
-                    return api.sendMessage({body:`➢ 𝑳𝒂̆́𝒄 𝑻𝒓𝒖́𝒏𝒈: ${full.join(" | ")}\n🌺𝑩𝒂̣𝒏 𝑻𝒉𝒂̆́𝒏𝒈 𝑳𝒐̛́𝒏 𝑽𝒂̀ 𝑵𝒉𝒂̣̂𝒏 𝑽𝒆̂̀ 𝑺𝒐̂́ 𝑻𝒊𝒆̂̀𝒏 ${mon}$ 💸\n➢ 𝑩𝒐𝒕 𝒍𝒂̆́𝒄 𝒓𝒂 𝒄𝒐́ 𝒉𝒂𝒊 𝒄𝒐𝒏 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐡𝐚𝐢 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
         else if (i == 3) {
             var mon = parseInt(args[1]) * 3; 
                 await Currencies.increaseMoney(event.senderID, mon); console.log('s3')
-                    return api.sendMessage({body:`➢ 𝑳𝒂̆́𝒄 𝑻𝒓𝒖́𝒏𝒈: ${full.join(" | ")}\n🌺𝑩𝒂̣𝒏 𝑻𝒉𝒂̆́𝒏𝒈 𝑳𝒐̛́𝒏 𝑽𝒂̀ 𝑵𝒉𝒂̣̂𝒏 𝑽𝒆̂̀ 𝑺𝒐̂́ 𝑻𝒊𝒆̂̀𝒏 ${mon}$ 💸\n➢ 𝑩𝒐𝒕 𝒍𝒂̆́𝒄 𝒓𝒂 𝒄𝒐́ 𝒃𝒂 𝒄𝒐𝒏 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐛𝐚 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
-        else return api.sendMessage("[𝑩𝑶𝑻] => 𝑳𝒐̂̃𝒊 𝒓𝒐̂̀𝒊 𝒃𝒂̂̀𝒖 𝒄𝒖𝒂 𝒄𝒐𝒏 𝒄𝒂̣̆𝒄 𝒃𝒐̛́𝒕 𝒏𝒈𝒉𝒊𝒆̣̂𝒏 𝒍𝒂̣𝒊",event.threadID,event.messageID);
+        else return api.sendMessage("𝐋𝐨̂̃𝐢 𝐫𝐨̂̀𝐢, 𝐁𝐚̂̀𝐮 𝐜𝐮𝐚 𝐜𝐨𝐧 𝐜𝐚̆̀𝐜 𝐛𝐨̛́𝐭 𝐧𝐠𝐡𝐢𝐞̣̂𝐧 𝐥𝐚̣𝐢",event.threadID,event.messageID);
     } else  {
         await Currencies.decreaseMoney(event.senderID, parseInt(args[1])); console.log('s4')
-        return api.sendMessage({body:`➢ 𝑳𝒂̆́𝒄 𝑻𝒓𝒖́𝒏𝒈: ${full.join(" | ")}\n🌺𝑩𝒂̣𝒏 𝑻𝒉𝒖𝒂 𝑹𝒐̂̀𝒊 𝑽𝒂̀ 𝑩𝒊̣ 𝑻𝒓𝒖̛̀ ${args[1]}$ 💸\n➢ 𝑽𝒊̀ 𝒏𝒉𝒂̀ 𝒄𝒂́𝒊 𝒍𝒂̆́𝒄 𝒓𝒂 𝒌𝒉𝒐̂𝒏𝒈 𝒄𝒐́ 𝒄𝒐𝒏 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+        return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐝𝐚̃ 𝐭𝐡𝐮𝐚 𝐯𝐚̀ 𝐛𝐢̣ 𝐭𝐫𝐮̛̀ ${args[1]}$ 💸\n𝐯𝐢̀ 𝐤𝐡𝐨̂𝐧𝐠 𝐜𝐨́ 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
     }
         } ,event.messageID);
 };

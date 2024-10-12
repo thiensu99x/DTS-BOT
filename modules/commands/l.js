@@ -15,7 +15,7 @@ module.exports = {
         version: '1.1.3',
         credits: 'Shikaki - Conver LocDev and retrieved ',
         description: "trò chuyện cùng llama3 70b - groq",
-        commandCategory: "Tìm Kiếm",
+        commandCategory: "Tiện ích",
         usages: "l + [câu hỏi], và muốn xóa dữ liệu thì l clear",
         cooldowns: 1,
     },

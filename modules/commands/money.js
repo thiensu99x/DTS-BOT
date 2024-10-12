@@ -5,7 +5,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "Mirai Team",//mod by ARAXY XD
 	description: "Kiểm tra số tiền của bản thân hoặc người được tag",
-	commandCategory: "game",
+	commandCategory: "Trò chơi",
 	usages: "[Tag]",
 	cooldowns: 5
 };

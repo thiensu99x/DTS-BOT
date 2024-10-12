@@ -4,7 +4,7 @@
     hasPermssion: 0,
     credits: 'DC-Nam',
     description: 'Games nối chữ!',
-    commandCategory: 'Game',
+    commandCategory: 'Trò chơi',
     usages: 'noitu + số tiền cược',
     cooldowns: 3
 };

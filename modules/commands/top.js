@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "CatalizCS",
     description: "Xem những đứa lắm mồm nhất quả đất",
-    commandCategory: "tiện ích",
+    commandCategory: "Tiện ích",
     usages: "[thread/user/money/level]",
     cooldowns: 5
   };

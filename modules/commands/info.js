@@ -61,7 +61,7 @@ module.exports.config = {
 		credits: "Deku mod by Niio-team và những chú lợn",
 		description: "Get info người dùng",
 		usages: "[reply/uid/link/@tag] nếu link có sẵn uid thì tách uid ra bot mới có thể đọc được nhé",
-		commandCategory: "Thành Viên",
+		commandCategory: "Nhóm",
 		cooldowns: 0
 };
 module.exports.run = async function({ api, event, args, client, Users, Currencies, permssion }) {

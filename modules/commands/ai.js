@@ -4,7 +4,7 @@
     hasPermssion: 0,
     credits: "Fumio",
     description: "GPT4",
-    commandCategory: "box chat",
+    commandCategory: "Tiện Ích",
     usages: "[Script]",
     cooldowns: 5,
     usePrefix: false,

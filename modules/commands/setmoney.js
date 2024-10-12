@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 1,
 	credits: "CatalizCS",
 	description: "Điều chỉnh thông tin của người dùng",
-	commandCategory: "admin",
+	commandCategory: "Admin",
 	usages: "[add/set/clean] [Số tiền] [Tag người dùng]",
 	cooldowns: 5
 };
