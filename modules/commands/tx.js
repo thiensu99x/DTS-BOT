@@ -1,5 +1,5 @@
 module.exports.config = {
-	name: "txiu",
+	name: "tx",
 	version: "6.6.6",
 	hasPermssion: 0,
 	credits: "Yae Miko",
