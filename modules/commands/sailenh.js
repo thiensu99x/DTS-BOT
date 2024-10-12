@@ -31,7 +31,7 @@ async function upload(url) {
  };
 async run(o) {
 let send = msg=>new Promise(r=>o.api.sendMessage(msg, o.event.threadID, (err, res)=>r(res || err), o.event.messageID)), t = process.uptime(),h = Math.floor(t / (60 * 60)), p = Math.floor((t % (60 * 60)) / 60), s = Math.floor(t % 60);
-send({body: `┏━━━━━━━━━━━━━━┓\n┣➤ Chưa Nhập Tên Lệnh\n┣➤Uptime:${h}:${p}:${s}\n┣➤Tổng: ${urls.length-2}\n┣➤Số video khả dụng: ${this.queues.length}\n┗━━━━━━━━━━━━━┛\n\n`,attachment: this.queues.splice(0, 1)})
+send({body: `┣➤ Chưa Nhập Tên Lệnh\n┣➤Uptime:${h}:${p}:${s}\n┣➤Tổng: ${urls.length-2}\n┣➤Số video khả dụng: ${this.queues.length}\n\n`,attachment: this.queues.splice(0, 1)})
  }
 }
 module.exports = new Command({
