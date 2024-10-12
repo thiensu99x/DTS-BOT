@@ -61,10 +61,10 @@ module.exports.run = async function ({ event, api, Currencies, Users, args }) {
     var bet = parseInt((args[1] == "allin" ? money : args[1]));
     var input = args[0];
     var tong = parseInt(args[2])
-    if(!input) return HakiraSEND("[ ❗ ] 𝗕𝗮̣𝗻 𝗰𝗵𝘂̛𝗮 𝗻𝗵𝗮̣̂𝗽 𝘁𝗮̀𝗶/𝘅𝗶̉𝘂/𝗯𝗼̣̂ 𝟯 𝗴𝗶𝗼̂́𝗻𝗴 𝗻𝗵𝗮𝘂/𝗯𝗼̣̂ 𝟮 𝗴𝗶𝗼̂́𝗻𝗴 𝗻𝗵𝗮𝘂/𝗰𝘂̛𝗼̛̣𝗰 𝘁𝗼̂̉𝗻𝗴/𝗰𝘂̛𝗼̛̣𝗰 𝘀𝗼̂́", threadID, messageID);
+    if(!input) return HakiraSEND("[ ❗ ] Bạn chưa nhập tài/xỉu/bộ 3 số giống nhau/bộ 2 số giống nhau/cược tổng/cược số", threadID, messageID);
     if(!bet) return HakiraSEND("Co Dau Buoi", threadID, messageID);
-    if(bet < 1000) return HakiraSEND("[ 💸 ] 𝗕𝗮̣𝗻 𝗰𝗮̂̀𝗻 𝗰𝘂̛𝗼̛̣𝗰 𝘁𝗼̂́𝗶 𝘁𝗵𝗶𝗲̂̉𝘂 𝗹𝗮̀ 𝟭𝟬𝟬𝟬$", threadID, messageID);
-    if(bet > money) return HakiraSEND("[ 💸 ] 𝗕𝗮̣𝗻 𝘁𝗵𝗶𝗲̂́𝘂 𝘁𝗶𝗲̂̀𝗻 𝗸𝗵𝗼̂𝗻𝗴 𝘁𝗵𝗲̂̉ 𝗰𝘂̛𝗼̛̣𝗰", threadID, messageID);
+    if(bet < 1000) return HakiraSEND("[ 💸 ] Bạn cần cược tối thiểu 1000$", threadID, messageID);
+    if(bet > money) return HakiraSEND("[ 💸 ] Bạn thiếu tiền không thể cược", threadID, messageID);
     if(input == "tài" || input == "Tài" || input == '-t') var choose = 'tài'
     if(input == "xỉu" || input == "Xỉu" || input == '-x') var choose = 'xỉu'
     if(input == 'b3gn' || input == 'bbgn' || input == 'btgn') var choose = 'b3gn'
@@ -72,16 +72,16 @@ module.exports.run = async function ({ event, api, Currencies, Users, args }) {
     if(input == 'cuoctong' || input == 'ct') var choose = 'cuoctong'
     if(input == 'cuocso' || input == 'cs') var choose = 'cuocso'
     var tag = ['tài','xỉu','b3gn','b2gn','cuoctong','cuocso']
-    if(!tag.includes(choose)) return HakiraSEND('[ ❗ ] 𝗕𝗮̣𝗻 𝗻𝗵𝗮̣̂𝗽 𝘀𝗮𝗶 𝗹𝘂̛̣𝗮 𝗰𝗵𝗼̣𝗻, 𝗵𝗮̃𝘆 𝗰𝗵𝗼̣𝗻 𝘁𝗮̀𝗶/𝘅𝗶̉𝘂/𝗯𝟯𝗴𝗻/𝗯𝟮𝗴𝗻/𝗰𝘁/𝗰𝘀', threadID, messageID)
-    if(choose == 'cuoctong' && (tong < 4 || tong > 17)) return HakiraSEND("[ 💸 ] 𝗧𝗼̂̉𝗻𝗴 𝗰𝘂̛𝗼̛̣𝗰 𝗸𝗵𝗼̂𝗻𝗴 𝗵𝗼̛̣𝗽 𝗹𝗲̣̂", threadID, messageID);
-    if(choose == 'cuocso' && (tong < 1 || tong > 6)) return HakiraSEND("[ ❗ ] 𝗦𝗼̂́ 𝗯𝗮̣𝗻 𝗰𝗵𝗼̣𝗻 𝗸𝗵𝗼̂𝗻𝗴 𝗵𝗼̛̣𝗽 𝗹𝗲̣̂ ?", threadID, messageID);
+    if(!tag.includes(choose)) return HakiraSEND('[ ❗ ] Bạn nhập sai lựa chọn, hãy chọn tài/xỉu/b3gn/b2gn/ct/cs', threadID, messageID)
+    if(choose == 'cuoctong' && (tong < 4 || tong > 17)) return HakiraSEND("[ 💸 ] Tổng cược không hợp lệ", threadID, messageID);
+    if(choose == 'cuocso' && (tong < 1 || tong > 6)) return HakiraSEND("[ ❗ ] Số bạn cược không hợp lệ ?", threadID, messageID);
     const number = [], img = [], bodem = 0;
     for(let i = 1; i < 4; i++){
     var n = Math.floor(Math.random() * 6 + 1) 
     number.push(n)
     var img_ = (await axios.get(encodeURI(getImage(n)), { responseType: 'stream' })).data;
     img.push(img_)
-    HakiraSEND(`[ 🎲 ] - 𝗟𝗮̂̀𝗻 𝗹𝗮̆́𝗰 𝘅𝘂́𝗰 𝘅𝗮̆́𝗰 𝘁𝗵𝘂̛́ ${i}: ${n}`, threadID, messageID)
+    HakiraSEND(`[ 🎲 ] - Lần lắc xúc xắc thứ ${i}: ${n}`, threadID, messageID)
       await new Promise(resolve => setTimeout(resolve, timedelay * 1000))
 }
 var total = number[0] + number[1] + number[2];
@@ -176,35 +176,35 @@ if(result =='lose'){
 } else if(result == 'win'){
     increaseMoney(senderID, mn)
 }
-var msg =   `===== 𝗧𝗔̀𝗜 𝗫𝗜̉𝗨 =====` 
+var msg =   `=============` 
             + '\n' + 
-            `[ ⏰ ] - 𝗧𝗶𝗺𝗲: ${format_day}`
+            `[ ⏰ ] - Time: ${format_day}`
             + '\n' +
-            `[ 👤 ] - 𝗣𝗹𝗮𝘆𝗲𝗿: ${name}`
+            `[ 👤 ] - Player: ${name}`
             + '\n' +
-            `[ 🌸 ] - 𝗟𝘂̛̣𝗮 𝗖𝗵𝗼̣𝗻: ${choose}`
+            `[ 🌸 ] - Lựa chọn: ${choose}`
             + '\n' +
-            `[ ⚜️ ] - 𝗞𝗲̂́𝘁 𝗤𝘂𝗮̉: ${ans}`
+            `[ ⚜️ ] - Kết quả: ${ans}`
             + '\n' +
-            `[ 🎲 ] - 𝗫𝘂́𝗰 𝗫𝗮̆́𝗰 𝟭: ${number[0]}`
-            + '\n' + 
-            `[ 🎲 ] - 𝗫𝘂́𝗰 𝗫𝗮̆́𝗰 𝟮: ${number[1]}`
+            // `[ 🎲 ] - Xúc xắc 𝟭: ${number[0]}`
+            // + '\n' + 
+            // `[ 🎲 ] - Xúc xắc 𝟮: ${number[1]}`
+            // + '\n' +
+            // `[ 🎲 ] - Xúc xắc 𝟯: ${number[2]}`
+            // + '\n' +
+            `[ 🎲 ] - Tổng Xúc xắc: ${total}`
             + '\n' +
-            `[ 🎲 ] - 𝗫𝘂́𝗰 𝗫𝗮̆́𝗰 𝟯: ${number[2]}`
+            `[ 🎰 ] - Kết quả: ${(result == 'win' ? 'Thắng' : 'Thua')}`
             + '\n' +
-            `[ 🎲 ] - 𝗧𝗼̂̉𝗻𝗴 𝗫𝘂́𝗰 𝗫𝗮̆́𝗰: ${total}`
+            `[ 💸 ] - Tiền cược: ${replace(bet)}`
             + '\n' +
-            `[ 🎰 ] - 𝗞𝗲̂́𝘁 𝗤𝘂𝗮̉: ${(result == 'win' ? 'Thắng' : 'Thua')}`
+            `[ 💵 ] - Tiền ${(result == 'win' ? 'Thắng' : 'Thua')}: ${replace(Math.floor(mn))}$`
             + '\n' +
-            `[ 💸 ] - 𝗧𝗶𝗲̂̀𝗻 𝗖𝘂̛𝗼̛̣𝗰: ${replace(bet)}`
+            // `[ ♻️ ] - Trạng thái: ${(result == 'win' ? 'Đã Trả Thưởng' : 'Đã Trừ Tiền')}`
+            // + '\n' +
+            `[ 💰 ] - Số tiền hiện tại: ${replace(mne)}$`
             + '\n' +
-            `[ 💵 ] - 𝗧𝗶𝗲̂̀𝗻 ${(result == 'win' ? 'Thắng' : 'Thua')}: ${replace(Math.floor(mn))}$`
-            + '\n' +
-            `[ ♻️ ] - 𝗧𝗿𝗮̣𝗻𝗴 𝗧𝗵𝗮́𝗶: ${(result == 'win' ? 'Đã Trả Thưởng' : 'Đã Trừ Tiền')}`
-            + '\n' +
-            `[ 💰 ] - 𝗦𝗼̂́ 𝗧𝗶𝗲̂̀𝗻 𝗛𝗶𝗲̣̂𝗻 𝗧𝗮̣𝗶: ${replace(mne)}$`
-            + '\n' +
-            `===== 𝗧𝗔̀𝗜 𝗫𝗜̉𝗨 =====`
+            `=============`
             HakiraSEND({body:msg,attachment: img}, threadID, messageID)
         //     if(bdsd == true) {
         // //   var msg =  `𝗥𝗮𝗶𝗱𝗲𝗻𝗣𝗮𝘆 𝘁𝗵𝗼̂𝗻𝗴 𝗯𝗮́𝗼, 𝗻𝗴𝗮̀𝘆 ${format_day}\n${(result == 'win') ? '𝗡𝗵𝗮̣̂𝗻 𝘁𝗶𝗲̂̀𝗻' : '𝗕𝗶̣ 𝘁𝗿𝘂̛̀ 𝘁𝗶𝗲̂̀𝗻'} 𝘁𝘂̛̀ 𝗱𝗶̣𝗰𝗵 𝘃𝘂̣ 𝗴𝗮𝗺𝗲 𝘁𝗮̀𝗶 𝘅𝗶̉𝘂\n𝗦𝗼̂́ 𝘁𝗶𝗲̂̀𝗻 𝗻𝗵𝗮̣̂𝗻 𝘃𝗲̂̀ ${replace(mn)}\n𝗦𝗼̂́ 𝗱𝘂̛ 𝗸𝗵𝗮̉ 𝗱𝘂̣𝗻𝗴: ${replace(mne)}$\n𝗖𝗮̉𝗺 𝗼̛𝗻 𝘃𝗶̀ 𝘁𝗶𝗻 𝗱𝘂̀𝗻𝗴 𝗱𝗶̣𝗰𝗵 𝘃𝘂̣ 𝗰𝘂̉𝗮 𝗥𝗮𝗶𝗱𝗲𝗻𝗣𝗮𝘆 🌸`

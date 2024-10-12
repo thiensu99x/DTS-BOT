@@ -121,7 +121,7 @@ for (let i = 0; i < 3; i++) number[i] = slotItems[Math.floor(Math.random() * slo
                             default: return api.sendMessage("Hãy Bấm : /baucua [bầu/cua/cá/nai/gà/tôm] [số tiền]",event.threadID, event.messageID);
             }      
             await get(number[0],number[1],number[2]);
-        api.sendMessage({body:"𝐂𝐡𝐮́𝐜 𝐛𝐚̣𝐧 𝐦𝐚𝐲 𝐦𝐚̆́𝐧💝",attachment: createReadStream(__dirname + "/cache/baucua.gif")},event.threadID,async (error,info) => {
+        api.sendMessage({body:"Bot đang lắc\nChúc bạn may mắn💝",attachment: createReadStream(__dirname + "/cache/baucua.gif")},event.threadID,async (error,info) => {
             await new Promise(resolve => setTimeout(resolve, 5 * 1000));
                 api.unsendMessage(info.messageID);
                       await new Promise(resolve => setTimeout(resolve, 100));
@@ -138,22 +138,22 @@ var array = [number[0],number[1],number[2]];
         if (i == 1) {
             var mon = parseInt(args[1]) + 300;  
                 await Currencies.increaseMoney(event.senderID, mon); console.log("s1")
-                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐦𝐨̣̂𝐭 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`Kết quả: ${full.join(" | ")}\nBạn thắng và nhận về số tiền ${mon}$ \n➢ Bot lắc ra 1 con ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
         else if (i == 2) {
             var mon = parseInt(args[1]) * 2; 
                 await Currencies.increaseMoney(event.senderID, mon); console.log("s2")
-                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐡𝐚𝐢 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`Kết quả: ${full.join(" | ")}\nBạn thắng và nhận về số tiền ${mon}$ \n➢ Bot lắc ra 2 con ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
         else if (i == 3) {
             var mon = parseInt(args[1]) * 3; 
                 await Currencies.increaseMoney(event.senderID, mon); console.log('s3')
-                    return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐛𝐚 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+                    return api.sendMessage({body:`Kết quả: ${full.join(" | ")}\nBạn thắng và nhận về số tiền ${mon}$ \n➢ Bot lắc ra 3 con ${icon}`,attachment: listimg},event.threadID, event.messageID);
         }
-        else return api.sendMessage("𝐋𝐨̂̃𝐢 𝐫𝐨̂̀𝐢, 𝐁𝐚̂̀𝐮 𝐜𝐮𝐚 𝐜𝐨𝐧 𝐜𝐚̆̀𝐜 𝐛𝐨̛́𝐭 𝐧𝐠𝐡𝐢𝐞̣̂𝐧 𝐥𝐚̣𝐢",event.threadID,event.messageID);
+        else return api.sendMessage("Lớn rồi,  bớt nghiện lại",event.threadID,event.messageID);
     } else  {
         await Currencies.decreaseMoney(event.senderID, parseInt(args[1])); console.log('s4')
-        return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐝𝐚̃ 𝐭𝐡𝐮𝐚 𝐯𝐚̀ 𝐛𝐢̣ 𝐭𝐫𝐮̛̀ ${args[1]}$ 💸\n𝐯𝐢̀ 𝐤𝐡𝐨̂𝐧𝐠 𝐜𝐨́ 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
+        return api.sendMessage({body:`Kết quả: ${full.join(" | ")}\nBạn đã thua và bị trừ ${args[1]}$ 💸\nvì không có con ${icon}`,attachment: listimg},event.threadID, event.messageID);
     }
         } ,event.messageID);
 };
