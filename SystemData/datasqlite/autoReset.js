@@ -7,14 +7,14 @@ module.exports = function () {
       { gio: 0, phut: 30, giay: 0 },
       { gio: 2, phut: 30, giay: 0 },
       { gio: 4, phut: 30, giay: 0 },
-      { gio: 7, phut: 30, giay: 0 },
+      { gio: 7, phut: 35, giay: 0 },
       { gio: 10, phut: 30, giay: 0 },
       { gio: 11, phut: 12, giay: 30 },
       { gio: 13, phut: 30, giay: 0 },
       { gio: 15, phut: 0, giay: 0 },
       { gio: 17, phut: 30, giay: 0 },
       { gio: 19, phut: 0, giay: 0 },
-      { gio: 20, phut: 30, giay: 0 },
+      { gio: 20, phut: 35, giay: 0 },
       { gio: 22, phut: 30, giay: 0 },
       { gio: 23, phut: 40, giay: 0 }
     ];
