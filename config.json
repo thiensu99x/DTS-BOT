@@ -14,8 +14,8 @@
     "EMAIL": "",
     "PASSWORD": "",
     "ACCESSTOKEN": "",
-    "BOTNAME": "DTS",
-    "ADMIN_NAME": "DTS",
+    "BOTNAME": "DTS-BOT",
+    "ADMIN_NAME": "Dinh Thien Su",
     "FACEBOOK_ADMIN": "m.me/thiensu99x",
     "TELEGRAM_ADMIN": "t.me/thiensu99x",
     "ZALO_ADMIN": "0966543851",
@@ -43,7 +43,7 @@
         "selfListen": false,
         "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/604.1"
     },
-    "version": "1.2.14",
+    "version": "3.1.0",
     "menu": {
         "autoUnsend": {
             "status": true,
