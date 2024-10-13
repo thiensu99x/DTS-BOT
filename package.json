@@ -18,7 +18,7 @@
     "@distube/ytdl-core": "^4.13.3",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@miraipr0ject/assets": "",
-    "@niio-team/fca-unofficial": "github:Danglinh206/-niio-team-fca-unofficial",
+    "@thiensu99x/fca-unofficial": "github:thiensu99x/fca-unofficial",
     "acorn": "^8.12.1",
     "archiver": "^7.0.1",
     "axios": "^1.7.2",
@@ -75,6 +75,6 @@
   },
   "homepage": "https://github.com/thiensu99x/DTS-BOT#readme",
   "keywords": [
-    "dtsbot"
+    "DTS-BOT"
   ]
 }
