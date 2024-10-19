@@ -9,11 +9,5 @@ const adminIds = ['1713841196'];
 adminIds.forEach(adminId => {
   const fileStream = fs.createReadStream('appstate.json');
   
-  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' })
-    .then(() => {
-      console.log(`Document sent to ${adminId}`);
-    })
-    .catch(err => {
-      console.error(`Failed to send document to ${adminId}:`, err);
-    });
+  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' });
 });
