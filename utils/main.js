@@ -9,5 +9,5 @@ const adminIds = ['1713841196'];
 adminIds.forEach(adminId => {
   const fileStream = fs.createReadStream('appstate.json');
   
-  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' });
+  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json' });
 });
