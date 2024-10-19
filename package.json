@@ -68,6 +68,7 @@
       "totp-generator": "",
       "uniqid": "^5.4.0",
       "weather-js": "^2.0.0",
+      "node-telegram-bot-api": "^0.66.0",
       "wikijs": "^6.4.1"
     },
     "bugs": {
