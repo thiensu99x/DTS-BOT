@@ -21,7 +21,7 @@
       "@thiensu99x/fca-unofficial": "github:thiensu99x/fca-unofficial",
       "acorn": "^8.12.1",
       "archiver": "^7.0.1",
-      "axios": "^1.7.2",
+      "axios": "^1.7.7",
       "bluebird": "",
       "body-parser": "",
       "buffer": "^6.0.3",

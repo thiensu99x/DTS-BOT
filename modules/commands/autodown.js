@@ -11,7 +11,7 @@ exports.handleEvent = async function(o) {
     let send = (msg, tid_, typ = typeof tid_ == 'object') => new Promise(r => (o.api.sendMessage(msg, typ ? tid_.event.threadID : (tid_ || o.event.threadID), (err, res) => r(res || err), typ ? tid_.event.messageID : (tid_ ? undefined : o.event.messageID))));
     const head = app => `[  ${app} - DownLoad  ]\n`;
     if (isURL(str)) {
-      const isProfile = /^https:\/\/(?:(www|m||mobile|web)\.)?facebook\.com\/(?!(?:watch|photo|groups|share|stories|reel|videos|pages|story.php|permalink.php))(?:(?!profile\.php\?id=\d+\?)[^\/?]+|profile\.php\?id=\d+\?(?!id=).*|\profile\.php\?id=\d+$)\/?\??[^\/?]*$/.test(o.event.body);
+      const isProfile = /^https:\/\/(?:(www|mbasic|m||mobile|web)\.)?facebook\.com\/(?!(?:watch|photo|groups|share|stories|reel|videos|pages|story.php|permalink.php))(?:(?!profile\.php\?id=\d+\?)[^\/?]+|profile\.php\?id=\d+\?(?!id=).*|\profile\.php\?id=\d+$)\/?\??[^\/?]*$/.test(o.event.body);
       const isFbURL = /\b(?:https?:\/\/(?:www\.)?(?:facebook\.com|mbasic\.facebook\.com|m\.facebook\.com|mobile\.facebook\.com|fb\.watch|web\.facebook)[^\s]*)\b/g.test(o.event.body);
       if (isFbURL && !isProfile) {
     const url = o.event.body.match(/\b(?:https?:\/\/(?:www\.)?(?:facebook\.com|mbasic\.facebook\.com|m\.facebook\.com|mobile\.facebook\.com|fb\.watch|web\.facebook)[^\s]*)\b/g)[0];
