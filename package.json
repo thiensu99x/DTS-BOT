@@ -15,7 +15,7 @@
     },
     "author": "DTS",
     "dependencies": {
-      "@distube/ytdl-core": "^4.13.3",
+      "@distube/ytdl-core": "^4.14.4",
       "@ffmpeg-installer/ffmpeg": "^1.1.0",
       "@miraipr0ject/assets": "",
       "@thiensu99x/fca-unofficial": "github:thiensu99x/fca-unofficial",
