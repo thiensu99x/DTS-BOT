@@ -5,7 +5,7 @@ module.exports.config = {
     Rent: 1,
     credits: "D-Jukie",
     description: "Set dữ liệu mới của các box vào data",
-    commandCategory: "Admin-Hệ Thống",
+    commandCategory: "Admin",
     usages: "",
     cooldowns: 5,
 

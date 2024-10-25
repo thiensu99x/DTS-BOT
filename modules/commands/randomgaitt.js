@@ -8,7 +8,7 @@ module.exports.config = {
   hasPermission: 2,
   credits: "tnt", 
   description: "Random ngẫu nhiên",
-  commandCategory: "Random-IMG",
+  commandCategory: "Video",
   usages: "",
   cooldowns: 5,
 };

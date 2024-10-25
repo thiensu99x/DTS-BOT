@@ -7,7 +7,7 @@ module.exports.config = {
     Rent: 2,
     credits: "Dũngkon",//mod by vtuan
     description: "spamshareao",
-    commandCategory: "Admin-Hệ Thống",
+    commandCategory: "Admin",
     usages: "spamshare link|delay|số lượng chia sẻ",
     cooldowns: 2
 };

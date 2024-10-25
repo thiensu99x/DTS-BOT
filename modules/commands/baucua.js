@@ -5,7 +5,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "Horizon Lucius Synthesis I",
     description: "Game bầu cua có đặt cược",
-    commandCategory: "Trò chơi",
+    commandCategory: "Trò Chơi",
     usages: "<[gà/tôm/bầu/cua/cá/nai] hoặc[🐓/🦞/🍐/🦀/🐬/🦌]> <Số tiền cược (lưu ý phải trên 100$)>",
     cooldowns: 2
 };

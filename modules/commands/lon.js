@@ -46,7 +46,7 @@ module.exports.run = async ({ api, event, args, Users, Threads, Currencies }) =>
 
             // Gửi tin nhắn kèm ảnh
             const callback = () => api.sendMessage({
-                body: ` Ảnh dú của bạn đây\n→ -500$ !`,
+                body: ` Ảnh của bạn đây\n→ -500$ !`,
                 attachment: fs.createReadStream(__dirname + "/cache/1.jpg")
             }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.jpg"), event.messageID);
 

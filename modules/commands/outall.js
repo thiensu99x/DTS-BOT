@@ -5,7 +5,7 @@ module.exports.config = {
   Rent:2,
   credits: "VInhdz", 	
   description: "out all box", 	
-  commandCategory: "Admin-Hệ Thống", 	
+  commandCategory: "Admin", 	
   usages: "sendnoti [Text]", 	
   cooldowns: 5, 	
 };

@@ -5,7 +5,7 @@ module.exports.config = {
  Rent: 2,
  credits: "cherry",//vtuan fix :( 
  description: "...",
- commandCategory: "Admin-Hệ Thống", 
+ commandCategory: "Admin", 
  usages: "bủh", 
  cooldowns: 0,
  dependencies: {

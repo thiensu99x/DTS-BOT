@@ -5,7 +5,7 @@ module.exports.config = {
   Rent: 2,
   credits: "ChatGpt",
   description: "out box",
-  commandCategory: "Admin-Hệ Thống",
+  commandCategory: "Admin",
   usages: "[tid]",
   cooldowns: 3
 };

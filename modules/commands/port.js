@@ -6,7 +6,7 @@ module.exports.config = {
   Rent: 2,
 	credits: "NTKhang",
 	description: "Tạo bài viết mới ở acc bot",
-	commandCategory: "Admin-Hệ Thống",
+	commandCategory: "Admin",
 	cooldowns: 100000
 };
 

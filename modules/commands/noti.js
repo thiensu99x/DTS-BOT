@@ -8,7 +8,7 @@ module.exports.config = {
     Rent: 2,
     credits: "TruongMini",
     description: "Thông báo cho các nhóm",
-    commandCategory: "Admin-Hệ Thống",
+    commandCategory: "Admin",
     usages: "noti [msg]",
     cooldowns: 5,
 }

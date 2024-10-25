@@ -10,7 +10,7 @@ module.exports.config = {
   hasPermssion: 3,
   credits: "NTKhang",
   description: "Bật/tắt tự động seen khi có tin nhắn mới",
-  commandCategory: "Admin-Hệ Thống",
+  commandCategory: "Admin",
   usages: "on/off",
   cooldowns: 5
 };

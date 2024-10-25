@@ -4,7 +4,7 @@ module.exports.config = {
     hasPermssion: 0,
     credits: "DTS",
     description: "Random video",
-    commandCategory: "NSFW",
+    commandCategory: "Video",
     usages: "",
     cooldowns: 5,
     dependencies: {

@@ -4,7 +4,7 @@ module.exports.config = {
 	hasPermssion: 0,
 	credits: "Tiadals",
 	description: "Comment trên bảng",
-	commandCategory: "IMAGE",
+	commandCategory: "Nhóm",
 	usages: "zuck [text]",
 	cooldowns: 0,
 	dependencies: {
